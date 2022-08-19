@@ -1,0 +1,25 @@
+.side-bar-container {
+  background-color: #353535;
+  position: fixed;
+  top: 48px;
+  bottom: 0px;
+
+  border-top: 1px solid #7c7c7c;
+  color: white;
+  width: 230px;
+
+  .sidebar-header {
+    display: flex;
+    height: 48px;
+    border-bottom: 1px solid #8a8a8a;
+  }
+  .sidebar-shortcuts {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #8a8a8a;
+  }
+  .channel-message-section {
+    .channel-section {
+      margin-bottom: 10px;
+    }
+  }
+}

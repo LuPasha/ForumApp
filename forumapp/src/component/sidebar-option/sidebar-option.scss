@@ -1,0 +1,19 @@
+.side-option-container {
+  .showed-section {
+    display: flex;
+    padding: 7px;
+    padding-left: 14px;
+    justify-content: left;
+    align-items: center;
+    margin-top: 10px;
+    .title {
+      padding-left: 15px;
+    }
+  }
+
+  div:hover {
+    opacity: 0.8;
+    background-color: rgb(27, 27, 27);
+    cursor: pointer;
+  }
+}
