@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SidebarOption from "../sidebar-option/sidebar-option";
 import "./sidebar.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import RoomTag from "../roomTag/roomTag";
 
-import { useSelector } from "react-redux";
-import { addRoom } from "../../features/channel/channelSlice";
+import {
+  addRoom,
+  openAddChannelPopupOpen,
+  setupRooms,
+} from "../../features/channel/channelSlice";
 
 import {
   MoreIcon,
@@ -15,10 +19,30 @@ import {
   AddIcon,
 } from "../../assets/icons/icons";
 
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../utils/firebase";
+
 const Sidebar = () => {
   const { rooms } = useSelector((store) => store.channel);
+  const { currentUser } = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    const unsub = onSnapshot(
+      doc(db, "userChannels", currentUser?.uid),
+      (doc) => {
+        const docData = doc.data();
+        if (docData !== undefined) {
+          const roomData = Object.values(docData);
+
+          dispatch(setupRooms(roomData));
+        }
+      }
+    );
+
+    return unsub;
+  }, [dispatch]);
+
   return (
     <div className="side-bar-container">
       <div className="sidebar-header">
@@ -33,7 +57,16 @@ const Sidebar = () => {
       <div className="channel-message-section">
         <div className="channel-section">
           <SidebarOption Icon={DownArrowIcon} title="Channels" />
-          <SidebarOption Icon={AddIcon} title="Add channels" />
+          {rooms.map((room) => {
+            return <RoomTag key={room.roomId} room={room} />;
+          })}
+          <div
+            onClick={() => {
+              dispatch(openAddChannelPopupOpen());
+            }}
+          >
+            <SidebarOption Icon={AddIcon} title="Add channels" />
+          </div>
         </div>
         <div className="message-section">
           <SidebarOption Icon={DownArrowIcon} title="Direct Messages" />
