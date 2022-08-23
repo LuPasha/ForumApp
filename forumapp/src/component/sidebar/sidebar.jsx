@@ -10,6 +10,8 @@ import {
   setupRooms,
 } from "../../features/channel/channelSlice";
 
+import { setupUserRooms } from "../../features/user/userSlice";
+
 import {
   MoreIcon,
   ChatIcon,
@@ -23,7 +25,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 
 const Sidebar = () => {
-  const { rooms } = useSelector((store) => store.channel);
+  const { userRooms } = useSelector((store) => store.user);
   const { currentUser } = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
@@ -35,11 +37,21 @@ const Sidebar = () => {
         if (docData !== undefined) {
           const roomData = Object.values(docData);
 
-          dispatch(setupRooms(roomData));
+          dispatch(setupUserRooms(roomData));
         }
       }
     );
 
+    return unsub;
+  }, [dispatch, currentUser]);
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "channels", "rooms"), (doc) => {
+      const docData = doc.data();
+      if (docData !== undefined) {
+        const roomData = Object.values(docData);
+        dispatch(setupRooms(roomData));
+      }
+    });
     return unsub;
   }, [dispatch]);
 
@@ -57,7 +69,7 @@ const Sidebar = () => {
       <div className="channel-message-section">
         <div className="channel-section">
           <SidebarOption Icon={DownArrowIcon} title="Channels" />
-          {rooms.map((room) => {
+          {userRooms.map((room) => {
             return <RoomTag key={room.roomId} room={room} />;
           })}
           <div

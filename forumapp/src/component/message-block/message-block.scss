@@ -1,0 +1,28 @@
+.message-block-container {
+  margin: 20px;
+  display: flex;
+  align-items: flex-start;
+  .message-container {
+    margin-top: 3px;
+    margin-left: 10px;
+    .user-info-section {
+      display: flex;
+      align-items: center;
+      .name {
+        font-weight: bold;
+        font-size: 15px;
+      }
+      .time {
+        margin-left: 10px;
+        color: rgb(138, 138, 138);
+        font-size: 12px;
+      }
+    }
+    .message {
+      margin-top: 2px;
+    }
+    .reply-link {
+      margin-top: 10px;
+    }
+  }
+}

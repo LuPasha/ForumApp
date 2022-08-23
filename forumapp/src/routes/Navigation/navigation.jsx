@@ -3,8 +3,11 @@ import "./navigation.scss";
 import { Outlet } from "react-router-dom";
 
 import { TimeIcon, SearchIcon, HelpIcon } from "../../assets/icons/icons";
-
+import Sidebar from "../../component/sidebar/sidebar";
+import AddChannelPopup from "../../component/addChannelPopup/add-channel-popup";
+import { useSelector } from "react-redux";
 const Navigation = () => {
+  const { isAddChannelPopupOpen } = useSelector((store) => store.channel);
   return (
     <>
       <div className="navigation-container">
@@ -25,6 +28,8 @@ const Navigation = () => {
           <div>UserIcon</div>
         </div>
       </div>
+      <Sidebar></Sidebar>
+      {isAddChannelPopupOpen && <AddChannelPopup />}
       <Outlet />
     </>
   );

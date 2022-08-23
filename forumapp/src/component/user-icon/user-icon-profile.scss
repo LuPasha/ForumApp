@@ -1,0 +1,18 @@
+.user-icon-profile-container {
+  .black-circle {
+    background-color: rgb(122, 122, 122);
+  }
+
+  background-color: rgb(102, 102, 102);
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
