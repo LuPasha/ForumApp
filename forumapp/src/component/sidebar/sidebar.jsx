@@ -27,7 +27,6 @@ import { db } from "../../utils/firebase";
 const Sidebar = () => {
   const { userRooms } = useSelector((store) => store.user);
   const { currentUser } = useSelector((store) => store.user);
-  console.log(userRooms);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,17 +44,17 @@ const Sidebar = () => {
 
     return unsub;
   }, [dispatch, currentUser]);
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db, "channels", "rooms"), (doc) => {
-      const docData = doc.data();
-      if (docData !== undefined) {
-        const roomData = Object.values(docData);
+  // useEffect(() => {
+  //   const unsub = onSnapshot(doc(db, "channels", "rooms"), (doc) => {
+  //     const docData = doc.data();
+  //     if (docData !== undefined) {
+  //       const roomData = Object.values(docData);
 
-        dispatch(setupRooms(roomData));
-      }
-    });
-    return unsub;
-  }, [dispatch]);
+  //       dispatch(setupRooms(roomData));
+  //     }
+  //   });
+  //   return unsub;
+  // }, [dispatch]);
 
   return (
     <div className="side-bar-container">

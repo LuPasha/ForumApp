@@ -6,13 +6,14 @@ import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupReplies } from "../../features/channel/channelSlice";
 
 const MessageBlock = ({ mes }) => {
-  const rs = Object.values(mes.replies);
-  const hasReplies = rs.length !== 0;
+  const rs = mes.replies;
+  const replies = Object.values(rs);
+  const hasReplies = replies?.length !== 0;
 
   const dispatch = useDispatch();
 
   const showReplies = () => {
-    dispatch(setupReplies(rs));
+    dispatch(setupReplies(replies));
     dispatch(openReplyPage());
   };
 
@@ -30,7 +31,7 @@ const MessageBlock = ({ mes }) => {
         {hasReplies && (
           <div className="reply-link">
             <button onClick={showReplies}>go to reply</button>
-            {rs.map((r) => {
+            {replies?.map((r) => {
               return r.replyContent;
             })}
           </div>

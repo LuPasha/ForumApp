@@ -6,6 +6,9 @@ const initialState = {
   isAddChannelPopupOpen: false,
   isReplyPageOpen: false,
   replies: [],
+  selectRoom: null,
+  selectMessage: null,
+  displayMessage: null,
 };
 
 const ChannelSlice = createSlice({
@@ -34,6 +37,12 @@ const ChannelSlice = createSlice({
     setupReplies: (state, action) => {
       state.replies = action.payload;
     },
+    setupSelectRoom: (state, action) => {
+      state.selectRoom = action.payload;
+    },
+    setupSelectMessage: (state, action) => {
+      state.selectMessage = action.payload;
+    },
   },
 });
 
@@ -45,6 +54,8 @@ export const {
   openReplyPage,
   closeReplyPage,
   setupReplies,
+  setupSelectRoom,
+  setupSelectMessage,
 } = ChannelSlice.actions;
 
 export default ChannelSlice.reducer;

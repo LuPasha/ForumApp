@@ -10,9 +10,10 @@ const ChannelSection = ({ roomName, roomMessages }) => {
       <div className="header">
         <h1>{roomName}</h1>
       </div>
-      {Object.values(roomMessages).map((mes) => {
-        return <MessageBlock key={mes.messageId} mes={mes} />;
-      })}
+      {roomMessages &&
+        Object.values(roomMessages).map((mes) => {
+          return <MessageBlock key={mes.messageId} mes={mes} />;
+        })}
       <InputTextarea />
     </div>
   );

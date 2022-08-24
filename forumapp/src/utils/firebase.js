@@ -153,11 +153,18 @@ export const updateReviewToDatabase = async (bookid, newBook) => {
 //   await setDoc(doc(db, "channels", "rooms"), newRoom, { merge: true });
 // };
 export const addNewRoomToDatabase = async (newRoom, roomId) => {
-  await setDoc(doc(db, "channels", "rooms"), newRoom, { merge: true });
+  await setDoc(doc(db, "channels", roomId), newRoom, { merge: true });
 };
 
 export const addNewRoomToUserChannel = async (newRoom, uid) => {
   await setDoc(doc(db, "userChannels", uid), newRoom, { merge: true });
 };
 
-// export const addNewMessageToDatabase = async();
+export const addNewMessageToDatabase = async (newMessage, roomId) => {
+  const id = newMessage.messageId;
+  await setDoc(
+    doc(db, "messages", roomId),
+    { [id]: newMessage },
+    { merge: true }
+  );
+};

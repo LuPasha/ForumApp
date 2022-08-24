@@ -3,9 +3,11 @@ import "./input-textarea.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import { addNewMessageToDatabase } from "../../utils/firebase";
 
 const InputTextarea = () => {
   const { userName, uid } = useSelector((store) => store.user);
+  const { selectRoom } = useSelector((store) => store.channel);
 
   const [text, setText] = useState("");
   const today = new Date();
@@ -14,9 +16,7 @@ const InputTextarea = () => {
 
   const time = today.getHours() + ":" + today.getMinutes();
 
-  console.log(date);
-  console.log(time);
-  const mid = uuid().slice(0, 24);
+  const mid = uuid().slice(0, 23);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -27,8 +27,9 @@ const InputTextarea = () => {
       messageId: mid,
       uid: uid,
       userName: "Test",
-      replies: [],
+      replies: {},
     };
+    addNewMessageToDatabase(m, selectRoom.roomId);
   };
   const isEmpty = text === "";
 
