@@ -30,18 +30,18 @@ const AddChannelPopup = () => {
       [roomId]: {
         roomName: roomName,
         roomId: roomId,
-        roomMessages: [
+        roomMessages: {
           //messageid:message
 
-          {
+          "2ts3ta": {
             userid: "111",
             userName: "iiiiiiii",
             message: "bashio",
             date: "2022-19-29",
             messageId: "1",
             time: "9:12",
-            replies: [
-              {
+            replies: {
+              "3dshioahod": {
                 userid: "111",
                 replyId: "1",
                 date: "2222-12-21",
@@ -49,7 +49,7 @@ const AddChannelPopup = () => {
                 userName: "shoa",
                 replyContent: "shiohaoihoihdo",
               },
-              {
+              "4iiii": {
                 userid: "111",
                 replyId: "2",
                 date: "2222-12-21",
@@ -57,18 +57,18 @@ const AddChannelPopup = () => {
                 userName: "shoa",
                 replyContent: "shiohaoihoihdo",
               },
-            ],
+            },
           },
-          {
+          "5shoajo": {
             userid: "211",
             userName: "shioahoid",
             message: "sssssssssssddd ddddd wwwww rrrrrrr",
             date: "2020-19-29",
             messageId: "2",
             time: "9:12",
-            replies: [],
+            replies: {},
           },
-          {
+          "6hioahod": {
             userid: "311",
             userName: "Mk",
             message:
@@ -76,9 +76,9 @@ const AddChannelPopup = () => {
             date: "2020-01-29",
             messageId: "3",
             time: "12:12",
-            replies: [],
+            replies: {},
           },
-          {
+          "23shioajd": {
             userid: "511",
             userName: "Jack Jones",
             message:
@@ -86,9 +86,9 @@ const AddChannelPopup = () => {
             date: "2022-03-19",
             messageId: "4",
             time: "23:12",
-            replies: [],
+            replies: {},
           },
-        ],
+        },
       },
     };
 

@@ -1,11 +1,20 @@
 import React from "react";
 import UserIconProfile from "../user-icon/user-icon-profile";
 import "./message-block.scss";
+import { useDispatch } from "react-redux";
+import { openReplyPage } from "../../features/channel/channelSlice";
+import { setupReplies } from "../../features/channel/channelSlice";
 
 const MessageBlock = ({ mes }) => {
-  const hasReplies = mes.replies.length !== 0;
+  const rs = Object.values(mes.replies);
+  const hasReplies = rs.length !== 0;
 
-  console.log(hasReplies);
+  const dispatch = useDispatch();
+
+  const showReplies = () => {
+    dispatch(setupReplies(rs));
+    dispatch(openReplyPage());
+  };
 
   return (
     <div className="message-block-container">
@@ -20,8 +29,8 @@ const MessageBlock = ({ mes }) => {
         <div className="message">{mes.message}</div>
         {hasReplies && (
           <div className="reply-link">
-            <button>go to reply</button>
-            {mes.replies.map((r) => {
+            <button onClick={showReplies}>go to reply</button>
+            {rs.map((r) => {
               return r.replyContent;
             })}
           </div>

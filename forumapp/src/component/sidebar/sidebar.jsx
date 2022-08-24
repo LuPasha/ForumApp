@@ -27,6 +27,7 @@ import { db } from "../../utils/firebase";
 const Sidebar = () => {
   const { userRooms } = useSelector((store) => store.user);
   const { currentUser } = useSelector((store) => store.user);
+  console.log(userRooms);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -49,6 +50,7 @@ const Sidebar = () => {
       const docData = doc.data();
       if (docData !== undefined) {
         const roomData = Object.values(docData);
+
         dispatch(setupRooms(roomData));
       }
     });
