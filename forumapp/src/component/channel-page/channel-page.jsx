@@ -15,6 +15,7 @@ import ChannelSectionWithReply from "../channel-section/channel-section-with-rep
 import { closeReplyPage } from "../../features/channel/channelSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
+import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
 const ChannelPage = () => {
   const dRef = useRef(null);
   const aRef = useRef(null);
@@ -39,21 +40,59 @@ const ChannelPage = () => {
     });
 
     return unsub;
-  }, [roomName]);
+  }, [id]);
+  useEffect(() => {
+    if (isReplyPageOpen) {
+      const a = aRef.current;
+      const b = bRef.current;
+      const c = cRef.current;
+      const d = dRef.current;
 
-  // const styles=window.getComputedStyle(aRef.current)
-  // let width =parseInt(styles.width,10)
+      const aStyles = window.getComputedStyle(a);
+      let aWidth = parseInt(aStyles.width, 10);
+      const bStyles = window.getComputedStyle(b);
+      let bWidth = parseInt(bStyles.width, 10);
+      const cStyles = window.getComputedStyle(c);
+      let cWidth = parseInt(cStyles.width, 10);
+      let x = 0;
 
-  // let height
+      const onMouseMove = (event) => {
+        const dx = event.clientX - x;
+        x = event.clientX;
 
-  const onMouseMove = (event) => {};
+        aWidth = aWidth + dx;
+        cWidth = cWidth + dx;
+        bWidth = bWidth - dx;
+
+        a.style.width = `${aWidth}px`;
+        b.style.width = `${bWidth}px`;
+        c.style.width = `${cWidth}px`;
+      };
+
+      const onMouseUp = (event) => {
+        document.removeEventListener("mousemove", onMouseMove);
+      };
+      const onMouseDown = (event) => {
+        x = event.clientX;
+        a.style.left = aStyles.left;
+        a.style.right = null;
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      };
+      d.addEventListener("mousedown", onMouseDown);
+    }
+  }, [isReplyPageOpen]);
 
   return (
     <div className="channel-page-container">
       {isReplyPageOpen ? (
         <div className="reply-page-open-container">
-          <div className="a" ref={aRef}></div>
+          <div className="a" ref={aRef}>
+            <ChannelSectionWithReply roomName={roomName} roomMessages={rm} />
+          </div>
           <div className="b" ref={bRef}>
+            <div className="d" ref={dRef} />
             {
               <button
                 onClick={() => {
@@ -64,11 +103,16 @@ const ChannelPage = () => {
               </button>
             }
           </div>
-          <div className="c" ref={cRef}></div>
-          <div className="d" ref={dRef}></div>
+          <div className="c" ref={cRef}>
+            <InputTextareaWithReply />
+          </div>
         </div>
       ) : (
-        <ChannelSection roomName={roomName} roomMessages={rm} />
+        <div className="reply-close-page-container">
+          <ChannelSection roomName={roomName} roomMessages={rm} />
+
+          <InputTextarea />
+        </div>
       )}
     </div>
   );

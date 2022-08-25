@@ -7,7 +7,6 @@ import { sortObjectByCreateAt } from "../../utils/sort";
 
 const ChannelSection = ({ roomName, roomMessages }) => {
   const srm = sortObjectByCreateAt(roomMessages);
-
   return (
     <div className="channel-section-container">
       <div className="header">
@@ -17,7 +16,6 @@ const ChannelSection = ({ roomName, roomMessages }) => {
         srm.map((mes) => {
           return <MessageBlock key={mes.messageId} mes={mes} />;
         })}
-      <InputTextarea />
     </div>
   );
 };

@@ -18,7 +18,6 @@ const ChannelSectionWithReply = ({ roomName, roomMessages }) => {
         srm.map((mes) => {
           return <MessageBlock key={mes.messageId} mes={mes} />;
         })}
-      <InputTextareaWithReply />
     </div>
   );
 };
