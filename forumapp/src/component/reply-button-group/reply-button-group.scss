@@ -1,0 +1,110 @@
+.reply-button-group-container {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  right: 20px;
+  z-index: 40;
+  height: 25px;
+  padding-top: 4px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: space-between;
+  width: 120px;
+  align-items: center;
+  justify-items: center;
+  .message-button-chatbox {
+    position: relative;
+  }
+  .icon-container {
+    cursor: pointer;
+  }
+
+  .icon-container :hover {
+    background-color: rgb(243, 243, 243);
+  }
+  .icon-container-c :hover {
+    background-color: rgb(238, 238, 238);
+  }
+  .icon-container-bmark :hover {
+    background-color: rgb(238, 238, 238);
+  }
+  .icon-container-bmore :hover {
+    background-color: rgb(238, 238, 238);
+  }
+}
+
+.reply-button-info-container {
+  position: absolute;
+
+  right: 0px;
+  z-index: 40;
+
+  .aaa-s {
+    position: relative;
+
+    .info {
+      border-radius: 4px;
+      font-size: 12px;
+      height: 16px;
+      width: 80px;
+      background-color: rgb(66, 66, 66);
+      color: white;
+      position: absolute;
+      bottom: 12px;
+      right: 79px;
+      text-align: center;
+      padding: 8px;
+    }
+  }
+  .aaa-c {
+    position: relative;
+
+    .info {
+      border-radius: 4px;
+      font-size: 12px;
+      height: 16px;
+      width: 100px;
+      background-color: rgb(66, 66, 66);
+      color: white;
+      position: absolute;
+      bottom: 12px;
+      right: 43px;
+      text-align: center;
+      padding: 8px;
+    }
+  }
+  .aaa-mark {
+    position: relative;
+
+    .info {
+      border-radius: 4px;
+      font-size: 12px;
+      height: 16px;
+      width: 110px;
+      background-color: rgb(66, 66, 66);
+      color: white;
+      position: absolute;
+      bottom: 12px;
+      right: 8px;
+      text-align: center;
+      padding: 8px;
+    }
+  }
+  .aaa-more {
+    position: relative;
+
+    .info {
+      border-radius: 4px;
+      font-size: 12px;
+      height: 16px;
+      width: 70px;
+      background-color: rgb(66, 66, 66);
+      color: white;
+      position: absolute;
+      bottom: 12px;
+      right: 3px;
+      text-align: center;
+      padding: 8px;
+    }
+  }
+}

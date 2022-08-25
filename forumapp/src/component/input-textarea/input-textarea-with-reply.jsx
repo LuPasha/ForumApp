@@ -1,5 +1,5 @@
 import React from "react";
-import "./input-textarea.scss";
+import "./input-textarea-with-reply.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
@@ -7,7 +7,7 @@ import { addNewMessageToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
 
-const InputTextarea = () => {
+const InputTextareaWithReply = () => {
   const { userName, uid } = useSelector((store) => store.user);
   const { selectRoom } = useSelector((store) => store.channel);
   const [showPicker, setShowPicker] = useState(false);
@@ -46,7 +46,7 @@ const InputTextarea = () => {
   };
 
   return (
-    <div className="input-textarea-container">
+    <div className="input-textarea-with-reply-container">
       <form>
         <textarea
           onChange={(e) => {
@@ -79,4 +79,4 @@ const InputTextarea = () => {
   );
 };
 
-export default InputTextarea;
+export default InputTextareaWithReply;

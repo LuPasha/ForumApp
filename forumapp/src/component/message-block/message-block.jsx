@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupReplies } from "../../features/channel/channelSlice";
 import { useState } from "react";
+import ReplyButtonGroup from "../reply-button-group/reply-button-group";
 
 const MessageBlock = ({ mes }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -48,14 +49,7 @@ const MessageBlock = ({ mes }) => {
           </div>
         )}
       </div>
-      {isHovered && (
-        <div className="buttons">
-          <button>A</button>
-          <button>B</button>
-          <button>C</button>
-          <button>D</button>
-        </div>
-      )}
+      {isHovered && <ReplyButtonGroup message={mes} />}
     </div>
   );
 };

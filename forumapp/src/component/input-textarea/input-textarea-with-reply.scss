@@ -1,0 +1,45 @@
+.input-textarea-with-reply-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  bottom: 0px;
+  right: 35%;
+  left: 281px;
+  height: 120px;
+  background-color: rgb(255, 255, 255);
+  justify-content: center;
+
+  textarea {
+    position: relative;
+
+    bottom: 20px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+
+    height: 120px;
+    width: 95%;
+    min-width: 100px;
+
+    border: 2px solid rgb(5, 5, 5);
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+  }
+  .button-section {
+    display: flex;
+    position: relative;
+    bottom: 20px;
+    align-items: center;
+    button {
+      height: 25px;
+    }
+
+    .picker {
+      position: absolute;
+      bottom: 160px;
+      width: 600px;
+    }
+  }
+}
