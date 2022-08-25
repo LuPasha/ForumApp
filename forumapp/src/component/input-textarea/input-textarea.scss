@@ -27,8 +27,16 @@
     font-size: 16px;
     resize: none;
   }
-  button {
+  .button-section {
+    display: flex;
     position: relative;
     bottom: 20px;
+    button {
+    }
+    .picker {
+      position: absolute;
+      bottom: 160px;
+      width: 600px;
+    }
   }
 }

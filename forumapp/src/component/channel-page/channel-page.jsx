@@ -16,7 +16,7 @@ const ChannelPage = () => {
     (store) => store.channel
   );
 
-  const [rm, setRm] = useState([]);
+  const [rm, setRm] = useState({});
 
   const roomName = selectRoom.roomName;
 

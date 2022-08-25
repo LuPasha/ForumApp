@@ -3,6 +3,7 @@ import SidebarOption from "../sidebar-option/sidebar-option";
 import "./sidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import RoomTag from "../roomTag/roomTag";
+import { sortArrayByCreateAt } from "../../utils/sort";
 
 import {
   addRoom,
@@ -55,6 +56,7 @@ const Sidebar = () => {
   //   });
   //   return unsub;
   // }, [dispatch]);
+  const sortedUr = sortArrayByCreateAt(userRooms);
 
   return (
     <div className="side-bar-container">
@@ -70,7 +72,7 @@ const Sidebar = () => {
       <div className="channel-message-section">
         <div className="channel-section">
           <SidebarOption Icon={DownArrowIcon} title="Channels" />
-          {userRooms.map((room) => {
+          {sortedUr.map((room) => {
             return <RoomTag key={room.roomId} room={room} />;
           })}
           <div
