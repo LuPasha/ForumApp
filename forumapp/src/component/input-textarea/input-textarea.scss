@@ -31,8 +31,11 @@
     display: flex;
     position: relative;
     bottom: 20px;
+    align-items: center;
     button {
+      height: 25px;
     }
+
     .picker {
       position: absolute;
       bottom: 160px;
