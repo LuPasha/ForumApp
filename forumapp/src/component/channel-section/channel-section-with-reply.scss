@@ -1,2 +1,10 @@
 .channel-section-with-reply-container {
+  .header {
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 44px;
+  }
 }

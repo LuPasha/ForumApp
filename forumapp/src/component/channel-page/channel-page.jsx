@@ -16,6 +16,7 @@ import { closeReplyPage } from "../../features/channel/channelSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
+import ReplyPage from "../reply-page/reply-page";
 const ChannelPage = () => {
   const dRef = useRef(null);
   const aRef = useRef(null);
@@ -74,8 +75,7 @@ const ChannelPage = () => {
       };
       const onMouseDown = (event) => {
         x = event.clientX;
-        a.style.left = aStyles.left;
-        a.style.right = null;
+        a.style.width = aStyles.width;
 
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
@@ -93,15 +93,7 @@ const ChannelPage = () => {
           </div>
           <div className="b" ref={bRef}>
             <div className="d" ref={dRef} />
-            {
-              <button
-                onClick={() => {
-                  dispatch(closeReplyPage());
-                }}
-              >
-                close
-              </button>
-            }
+            <ReplyPage />
           </div>
           <div className="c" ref={cRef}>
             <InputTextareaWithReply />

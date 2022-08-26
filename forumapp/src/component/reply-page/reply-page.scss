@@ -1,0 +1,19 @@
+.reply-page-container {
+  margin-left: 4px;
+  border-bottom: 1px solid black;
+  .reply-page-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 44px;
+
+    .Thread {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .cancel-icon {
+      height: 22px;
+    }
+  }
+}
