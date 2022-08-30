@@ -1,15 +1,15 @@
 import React from "react";
-import "./input-textarea-with-reply.scss";
+import "./input-textarea-reply-page.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { addNewMessageToDatabase } from "../../utils/firebase";
+import { addNewReplyToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
 
-const InputTextareaWithReply = () => {
+const InputTextareaReplyPage = () => {
   const { userName, uid } = useSelector((store) => store.user);
-  const { selectRoom } = useSelector((store) => store.channel);
+  const { selectMessage } = useSelector((store) => store.channel);
   const [showPicker, setShowPicker] = useState(false);
 
   const [text, setText] = useState("");
@@ -20,24 +20,24 @@ const InputTextareaWithReply = () => {
 
   const time = today.getHours() + ":" + today.getMinutes();
 
-  const mid = uuid().slice(0, 23);
+  const rid = uuid().slice(0, 18);
 
   const createAt = today.getTime();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const m = {
+    const r = {
       date: date,
       time: time,
-      message: text,
-      messageId: mid,
+      reply: text,
+      replyId: rid,
       uid: uid,
       userName: userName,
-      replies: {},
+
       createAt: createAt,
     };
 
-    addNewMessageToDatabase(m, selectRoom.roomId);
+    addNewReplyToDatabase(r, selectMessage.messageId);
     setText("");
   };
 
@@ -47,7 +47,7 @@ const InputTextareaWithReply = () => {
   };
 
   return (
-    <div className="input-textarea-with-reply-container">
+    <div className="input-textarea-reply-page-container">
       <form>
         <textarea
           onChange={(e) => {
@@ -77,4 +77,4 @@ const InputTextareaWithReply = () => {
   );
 };
 
-export default InputTextareaWithReply;
+export default InputTextareaReplyPage;

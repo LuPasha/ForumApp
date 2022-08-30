@@ -1,12 +1,15 @@
 .reply-page-container {
   margin-left: 4px;
-  border-bottom: 1px solid black;
+
   .reply-page-header {
+    border-bottom: 1px solid rgb(202, 202, 202);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 44px;
+    position: sticky;
+    top: 0;
 
     .Thread {
       font-size: 20px;
@@ -14,6 +17,24 @@
     }
     .cancel-icon {
       height: 22px;
+    }
+  }
+
+  .breakline {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    .reply-count {
+      font-size: 15px;
+      color: rgb(112, 112, 112);
+      margin-left: 15px;
+      width: 70px;
+    }
+    .line {
+      height: 10px;
+      width: 80%;
+      margin-left: 4px;
+      border-bottom: 1px solid rgb(199, 199, 199);
     }
   }
 }

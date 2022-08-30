@@ -1,0 +1,19 @@
+.user-icon-smaller-container {
+  .black-circle {
+    background-color: rgb(253, 253, 253);
+  }
+  margin-right: 15px;
+
+  background-color: rgb(173, 173, 173);
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+  }
+}

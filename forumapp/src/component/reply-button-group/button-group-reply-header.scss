@@ -1,4 +1,4 @@
-.reply-button-group-container {
+.button-group-reply-header-container {
   .reply-button-container {
     position: absolute;
     background-color: rgb(255, 255, 255);
@@ -8,9 +8,9 @@
     padding-top: 4px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
-    width: 120px;
+    width: 90px;
     align-items: center;
     justify-items: center;
     .message-button-chatbox {
@@ -52,28 +52,12 @@
         color: white;
         position: absolute;
         bottom: 12px;
-        right: 79px;
+        right: 55px;
         text-align: center;
         padding: 8px;
       }
     }
-    .aaa-c {
-      position: relative;
 
-      .info {
-        border-radius: 4px;
-        font-size: 12px;
-        height: 16px;
-        width: 100px;
-        background-color: rgb(66, 66, 66);
-        color: white;
-        position: absolute;
-        bottom: 12px;
-        right: 43px;
-        text-align: center;
-        padding: 8px;
-      }
-    }
     .aaa-mark {
       position: relative;
 

@@ -17,7 +17,9 @@ import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
 import ReplyPage from "../reply-page/reply-page";
+
 const ChannelPage = () => {
+  const { selectMessage } = useSelector((store) => store.channel);
   const dRef = useRef(null);
   const aRef = useRef(null);
   const bRef = useRef(null);
@@ -75,7 +77,6 @@ const ChannelPage = () => {
       };
       const onMouseDown = (event) => {
         x = event.clientX;
-        a.style.width = aStyles.width;
 
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
@@ -93,7 +94,7 @@ const ChannelPage = () => {
           </div>
           <div className="b" ref={bRef}>
             <div className="d" ref={dRef} />
-            <ReplyPage />
+            <ReplyPage message={selectMessage} />
           </div>
           <div className="c" ref={cRef}>
             <InputTextareaWithReply />

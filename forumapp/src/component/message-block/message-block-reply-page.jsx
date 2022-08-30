@@ -1,13 +1,14 @@
 import React from "react";
 import UserIconProfile from "../user-icon/user-icon-profile";
-import "./message-block.scss";
+import "./message-block-reply-page.scss";
 import { useDispatch } from "react-redux";
 import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupReplies } from "../../features/channel/channelSlice";
 import { useState } from "react";
 import ReplyButtonGroup from "../reply-button-group/reply-button-group";
+import ButtonGroupReplyHeader from "../reply-button-group/button-group-reply-header";
 
-const MessageBlock = ({ mes }) => {
+const MessageBlockReplyPage = ({ mes }) => {
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
   // if (mes === null || mes === undefined) {
@@ -18,13 +19,12 @@ const MessageBlock = ({ mes }) => {
   const hasReplies = replies?.length !== 0;
 
   const showReplies = () => {
-    dispatch(setupReplies(replies));
     dispatch(openReplyPage());
   };
 
   return (
     <div
-      className="message-block-container"
+      className="message-block-reply-page-container"
       onMouseOver={() => {
         setIsHovered(true);
       }}
@@ -51,9 +51,9 @@ const MessageBlock = ({ mes }) => {
           </div>
         )}
       </div>
-      {isHovered && <ReplyButtonGroup message={mes} />}
+      {isHovered && <ButtonGroupReplyHeader message={mes} />}
     </div>
   );
 };
 
-export default MessageBlock;
+export default MessageBlockReplyPage;

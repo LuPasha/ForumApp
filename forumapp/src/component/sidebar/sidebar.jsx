@@ -24,6 +24,7 @@ import {
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
+import { setupUserName } from "../../features/user/userSlice";
 
 const Sidebar = () => {
   const { userRooms } = useSelector((store) => store.user);
@@ -45,17 +46,14 @@ const Sidebar = () => {
 
     return unsub;
   }, [dispatch, currentUser]);
-  // useEffect(() => {
-  //   const unsub = onSnapshot(doc(db, "channels", "rooms"), (doc) => {
-  //     const docData = doc.data();
-  //     if (docData !== undefined) {
-  //       const roomData = Object.values(docData);
 
-  //       dispatch(setupRooms(roomData));
-  //     }
-  //   });
-  //   return unsub;
-  // }, [dispatch]);
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "users", currentUser?.uid), (doc) => {
+      const docData = doc.data();
+      dispatch(setupUserName(docData.displayName));
+    });
+  }, [currentUser, dispatch]);
+
   const sortedUr = sortArrayByCreateAt(userRooms);
 
   return (

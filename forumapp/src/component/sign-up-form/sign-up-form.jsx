@@ -8,14 +8,16 @@ import {
 
 const SignUpForm = () => {
   const [formAttribute, setFormAttribute] = useState({
+    displayName: "",
     password: "",
     comfirmedPassword: "",
     email: "",
   });
-  const { email, comfirmedPassword, password } = formAttribute;
+  const { email, comfirmedPassword, password, displayName } = formAttribute;
 
   const resetFormAttribute = () => {
     setFormAttribute({
+      displayName: "",
       password: "",
       comfirmedPassword: "",
       email: "",
@@ -40,7 +42,7 @@ const SignUpForm = () => {
         email,
         password
       );
-      await createUserDocumentFromAuth(user);
+      await createUserDocumentFromAuth(user, displayName);
 
       resetFormAttribute();
     } catch (error) {
@@ -54,6 +56,16 @@ const SignUpForm = () => {
       <span>Sign up with your email and password </span>
 
       <form onSubmit={submitHandler}>
+        <div className="group">
+          <input
+            className="form-input"
+            type="text"
+            name="displayName"
+            onChange={changeHandler}
+            placeholder="displayName"
+            value={displayName}
+          ></input>
+        </div>
         <div className="group">
           <input
             className="form-input"

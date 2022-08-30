@@ -6,8 +6,12 @@ import { TimeIcon, SearchIcon, HelpIcon } from "../../assets/icons/icons";
 import Sidebar from "../../component/sidebar/sidebar";
 import AddChannelPopup from "../../component/addChannelPopup/add-channel-popup";
 import { useSelector } from "react-redux";
+import UserIcon from "../../component/user-icon/user-icon";
+import UserIconDropdown from "../../component/user-icon-dropdown/user-icon-dropdown";
 const Navigation = () => {
   const { isAddChannelPopupOpen } = useSelector((store) => store.channel);
+  const { isDropdownOpen } = useSelector((store) => store.user);
+
   return (
     <>
       <div className="navigation-container">
@@ -25,7 +29,10 @@ const Navigation = () => {
           <button>
             <HelpIcon />
           </button>
-          <div>UserIcon</div>
+          <div>
+            <UserIcon />
+          </div>
+          {isDropdownOpen && <UserIconDropdown />}
         </div>
       </div>
       <Sidebar></Sidebar>

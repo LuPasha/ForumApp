@@ -5,6 +5,7 @@ const initialState = {
   userId: null,
   userName: null,
   userRooms: [],
+  isDropdownOpen: false,
 };
 
 const UserSlice = createSlice({
@@ -23,9 +24,25 @@ const UserSlice = createSlice({
     setupUserName: (state, action) => {
       state.userName = action.payload;
     },
+    toggleIcon: (state) => {
+      state.isDropdownOpen = !state.isDropdownOpen;
+    },
+    resetUser: (state) => {
+      state.currentUser = null;
+      state.userId = null;
+      state.userName = null;
+      state.userRooms = [];
+      state.isDropdownOpen = false;
+    },
   },
 });
 
-export const { loginUser, setupUid, setupUserRooms, setupUserName } =
-  UserSlice.actions;
+export const {
+  loginUser,
+  setupUid,
+  setupUserRooms,
+  setupUserName,
+  toggleIcon,
+  resetUser,
+} = UserSlice.actions;
 export default UserSlice.reducer;

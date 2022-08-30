@@ -1,4 +1,4 @@
-import "./reply-button-group.scss";
+import "./button-group-reply-header.scss";
 
 import React from "react";
 
@@ -14,25 +14,21 @@ import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupSelectMessage } from "../../features/channel/channelSlice";
 import { useDispatch } from "react-redux";
 
-const ReplyButtonGroup = ({ message }) => {
+const ButtonGroupReplyHeader = ({ message }) => {
   const [s, setS] = useState(false);
-  const [c, setC] = useState(false);
+
   const [mark, setMark] = useState(false);
   const [more, setMore] = useState(false);
   const dispatch = useDispatch();
   return (
-    <div className="reply-button-group-container">
+    <div className="button-group-reply-header-container">
       <div className="reply-button-info-container">
         {s && (
           <div className="aaa-s">
             <span className="info">Add reactions</span>
           </div>
         )}
-        {c && (
-          <div className="aaa-c">
-            <span className="info">Reply to Thread</span>
-          </div>
-        )}
+
         {mark && (
           <div className="aaa-mark">
             <span className="info">Add to saved items</span>
@@ -56,21 +52,7 @@ const ReplyButtonGroup = ({ message }) => {
         >
           <SmileIcon />
         </div>
-        <div
-          className="icon-container"
-          onMouseOver={() => {
-            setC(true);
-          }}
-          onMouseOut={() => {
-            setC(false);
-          }}
-          onClick={() => {
-            dispatch(setupSelectMessage(message));
-            dispatch(openReplyPage());
-          }}
-        >
-          <BlackChatIcon />
-        </div>
+
         <div
           className="icon-container"
           onMouseOver={() => {
@@ -98,4 +80,4 @@ const ReplyButtonGroup = ({ message }) => {
   );
 };
 
-export default ReplyButtonGroup;
+export default ButtonGroupReplyHeader;

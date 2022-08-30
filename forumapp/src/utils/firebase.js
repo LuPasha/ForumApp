@@ -47,25 +47,19 @@ export const signInWithGooglePopup = async () => {
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (
-  userAuth,
-
-  additonalInfo = {}
-) => {
+export const createUserDocumentFromAuth = async (userAuth, displayName) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
+    const { email } = userAuth;
     const createdAt = new Date();
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-
-        ...additonalInfo,
       });
     } catch (error) {
       console.log("error when create an account", error);
@@ -121,33 +115,6 @@ export const updateProfileToDatabase = async (userId, userProfile) => {
   });
 };
 
-export const uploadBookDataToDatabase = (bookData) => {
-  const db = getDatabase();
-  bookData.map((book) => {
-    set(ref(db, "bookData/" + book.id + "/"), book);
-  });
-};
-
-export const downloadBookDataFromDatabase = async (setBookData) => {
-  const dbRef = ref(getDatabase());
-  await get(child(dbRef, "bookData/")).then((snapshot) => {
-    if (snapshot.exists()) {
-      const val = snapshot.val();
-      const bookData = val;
-      setBookData(bookData);
-
-      return true;
-    }
-  });
-  return false;
-};
-
-export const updateReviewToDatabase = async (bookid, newBook) => {
-  const db = getDatabase();
-
-  await update(ref(db, "bookData/" + bookid + "/"), newBook);
-};
-
 // export const addNewRoomToDatabase = async (newRoom, roomId) => {
 
 //   await setDoc(doc(db, "channels", "rooms"), newRoom, { merge: true });
@@ -165,6 +132,16 @@ export const addNewMessageToDatabase = async (newMessage, roomId) => {
   await setDoc(
     doc(db, "messages", roomId),
     { [id]: newMessage },
+    { merge: true }
+  );
+};
+
+export const addNewReplyToDatabase = async (newReply, mid) => {
+  const id = newReply.replyId;
+  await setDoc(
+    doc(db, "replies", mid),
+
+    { [id]: newReply },
     { merge: true }
   );
 };

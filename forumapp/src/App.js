@@ -19,7 +19,10 @@ function App() {
         path="/"
         element={currentUser ? <Navigate to="/app" /> : <Authentication />}
       />
-      <Route path="app" element={<Navigation />}>
+      <Route
+        path="app"
+        element={currentUser ? <Navigation /> : <Navigate to="/" />}
+      >
         <Route index element={<Home />} />
         <Route path="ac/*" element={<AllChannels />} />
         <Route path="adm/*" element={<AllDirectMessages />} />

@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { addNewMessageToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
+import { set } from "firebase/database";
 
 const InputTextarea = () => {
   const { userName, uid } = useSelector((store) => store.user);
@@ -32,12 +33,13 @@ const InputTextarea = () => {
       message: text,
       messageId: mid,
       uid: uid,
-      userName: "Test",
+      userName: userName,
       replies: {},
       createAt: createAt,
     };
 
     addNewMessageToDatabase(m, selectRoom.roomId);
+    setText("");
   };
 
   const onEmojiClick = (event, emojiObject) => {
