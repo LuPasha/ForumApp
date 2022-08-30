@@ -14,7 +14,7 @@ import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupSelectMessage } from "../../features/channel/channelSlice";
 import { useDispatch } from "react-redux";
 
-const ButtonGroupReplyHeader = ({ message }) => {
+const ButtonGroupReplyHeader = () => {
   const [s, setS] = useState(false);
 
   const [mark, setMark] = useState(false);

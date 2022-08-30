@@ -4,24 +4,30 @@ import { closeAddChannelPopupOpen } from "../../features/channel/channelSlice";
 import { CancelIcon } from "../../assets/icons/icons";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
-import { addNewRoomToDatabase } from "../../utils/firebase";
+
 import { useSelector } from "react-redux";
-import { addNewRoomToUserChannel } from "../../utils/firebase";
+import {
+  addNewRoomToDatabase,
+  addNewRoomToUserChannel,
+  addReservedWordToDatabase,
+} from "../../utils/firebase";
 
 const AddChannelPopup = () => {
   const dispatch = useDispatch();
 
   const { currentUser } = useSelector((store) => store.user);
+  const { reservedWords } = useSelector((store) => store.reserved);
   const [roomName, setRoomName] = useState("");
+
+  const isNameUsed = reservedWords.includes(roomName);
 
   const changeHandler = (e) => {
     e.preventDefault();
     setRoomName(e.target.value);
   };
-  const checkEmpty = () => {
-    return roomName === "";
-  };
-  const isEmpty = checkEmpty();
+
+  const isEmpty = roomName === "";
+  const buttonDisable = isEmpty || isNameUsed;
 
   const createNewRoom = () => {
     const roomId = uuid().slice(0, 8);
@@ -33,70 +39,12 @@ const AddChannelPopup = () => {
         roomName: roomName,
         roomId: roomId,
         createAt: createAt,
-        // roomMessages: {
-        //   //messageid:message
-
-        //   "2ts3ta": {
-        //     userid: "111",
-        //     userName: "iiiiiiii",
-        //     message: "bashio",
-        //     date: "2022-19-29",
-        //     messageId: "1",
-        //     time: "9:12",
-        //     replies: {
-        //       "3dshioahod": {
-        //         userid: "111",
-        //         replyId: "1",
-        //         date: "2222-12-21",
-        //         time: "3:21",
-        //         userName: "shoa",
-        //         replyContent: "shiohaoihoihdo",
-        //       },
-        //       "4iiii": {
-        //         userid: "111",
-        //         replyId: "2",
-        //         date: "2222-12-21",
-        //         time: "3:21",
-        //         userName: "shoa",
-        //         replyContent: "shiohaoihoihdo",
-        //       },
-        //     },
-        //   },
-        //   "5shoajo": {
-        //     userid: "211",
-        //     userName: "shioahoid",
-        //     message: "sssssssssssddd ddddd wwwww rrrrrrr",
-        //     date: "2020-19-29",
-        //     messageId: "2",
-        //     time: "9:12",
-        //     replies: {},
-        //   },
-        //   "6hioahod": {
-        //     userid: "311",
-        //     userName: "Mk",
-        //     message:
-        //       "ewer ssssssssss ssssssssss sssss ss sssssssss s sssssssssssssssssss s s sssss sssss ssssssss ssss ss sssssss ss ss sss ",
-        //     date: "2020-01-29",
-        //     messageId: "3",
-        //     time: "12:12",
-        //     replies: {},
-        //   },
-        //   "23shioajd": {
-        //     userid: "511",
-        //     userName: "Jack Jones",
-        //     message:
-        //       "Wikis are enabled by wiki software, otherwise known as wiki engines. A wiki engine, being a form of a content management system, differs from other web-based systems such as blog software, in that the content is created without any defined owner or leader, and wikis have little inherent structure, allowing structure to emerge according to the needs of the users.[1] Wiki engines usually allow content to be written using a simplified markup language and sometimes edited with the help of a rich-text editor.[2] There are dozens of different wiki engines in use, both standalone and part of other software, such as bug tracking systems. Some wiki engines are open-source, whereas others are proprietary. Some permit control over different functions (levels of access); for example, editing rights may permit changing, adding, or removing material. Others may permit access without enforcing access control. Other rules may be imposed to organize content.",
-        //     date: "2022-03-19",
-        //     messageId: "4",
-        //     time: "23:12",
-        //     replies: {},
-        //   },
-        // },
       },
     };
 
     addNewRoomToDatabase(newRoom, roomId);
     addNewRoomToUserChannel(newRoom, currentUser?.uid);
+    addReservedWordToDatabase(roomName);
     dispatch(closeAddChannelPopupOpen());
   };
 
@@ -122,7 +70,15 @@ const AddChannelPopup = () => {
         </div>
 
         <div className="input-section">
-          <h4>Channel Name</h4>
+          <div>
+            <h4>Name</h4>
+            {isNameUsed && (
+              <div className="name-used">
+                That name is already taken by a channel, username, or user
+                group.
+              </div>
+            )}
+          </div>
           <div className="the-input">
             <label className="prefix">#</label>
             <input
@@ -137,10 +93,10 @@ const AddChannelPopup = () => {
           <button
             className="create-button"
             style={{
-              backgroundColor: isEmpty ? "#c9c9c9" : "#444444",
-              color: isEmpty ? "black" : "white",
+              backgroundColor: buttonDisable ? "#c9c9c9" : "#444444",
+              color: buttonDisable ? "black" : "white",
             }}
-            disabled={isEmpty}
+            disabled={buttonDisable}
             onClick={() => {
               createNewRoom();
             }}

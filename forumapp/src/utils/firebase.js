@@ -145,3 +145,10 @@ export const addNewReplyToDatabase = async (newReply, mid) => {
     { merge: true }
   );
 };
+export const addReservedWordToDatabase = async (word) => {
+  await setDoc(
+    doc(db, "reservedWord", "words"),
+    { [word]: word },
+    { merge: true }
+  );
+};

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarOption from "../sidebar-option/sidebar-option";
 import "./sidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,15 +20,22 @@ import {
   FolderIcon,
   DownArrowIcon,
   AddIcon,
+  BookMarkIcon,
+  LeftArrowIcon,
 } from "../../assets/icons/icons";
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setupUserName } from "../../features/user/userSlice";
+import { setupReservedWords } from "../../features/reservedWords/reservedWordsSlice";
 
 const Sidebar = () => {
-  const { userRooms } = useSelector((store) => store.user);
-  const { currentUser } = useSelector((store) => store.user);
+  const { userRooms, currentUser } = useSelector((store) => store.user);
+
+  const { selectRoom } = useSelector((store) => store.channel);
+
+  const [showChannels, setShowChannels] = useState(true);
+  const [showDM, setShowDM] = useState(true);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,9 +59,17 @@ const Sidebar = () => {
       const docData = doc.data();
       dispatch(setupUserName(docData.displayName));
     });
+    return unsub;
   }, [currentUser, dispatch]);
 
   const sortedUr = sortArrayByCreateAt(userRooms);
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "reservedWord", "words"), (doc) => {
+      const docData = doc.data();
+      dispatch(setupReservedWords(Object.values(docData)));
+    });
+    return unsub;
+  }, []);
 
   return (
     <div className="side-bar-container">
@@ -64,15 +79,29 @@ const Sidebar = () => {
       <div className="sidebar-shortcuts">
         <SidebarOption Icon={ChatIcon} title="Threads" />
         <SidebarOption Icon={AtIcon} title="Mentions & replies" />
-        <SidebarOption Icon={FolderIcon} title="Files" />
+        <SidebarOption Icon={BookMarkIcon} title="Saved Items" />
         <SidebarOption Icon={MoreIcon} title="More" />
       </div>
       <div className="channel-message-section">
         <div className="channel-section">
-          <SidebarOption Icon={DownArrowIcon} title="Channels" />
-          {sortedUr.map((room) => {
-            return <RoomTag key={room.roomId} room={room} />;
-          })}
+          <div
+            onClick={() => {
+              setShowChannels(!showChannels);
+            }}
+          >
+            <SidebarOption
+              Icon={showChannels ? DownArrowIcon : LeftArrowIcon}
+              title="Channels"
+            />
+          </div>
+
+          {showChannels
+            ? sortedUr.map((room) => {
+                return <RoomTag key={room.roomId} room={room} />;
+              })
+            : selectRoom && (
+                <RoomTag key={selectRoom.roomId} room={selectRoom} />
+              )}
           <div
             onClick={() => {
               dispatch(openAddChannelPopupOpen());

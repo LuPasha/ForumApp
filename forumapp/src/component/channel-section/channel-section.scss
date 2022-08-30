@@ -5,4 +5,15 @@
   bottom: 157px;
   right: 0;
   left: 231px;
+  .header {
+    border-bottom: 1px solid rgb(202, 202, 202);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 44px;
+    position: sticky;
+    top: 0;
+    background-color: rgb(255, 255, 255);
+  }
 }

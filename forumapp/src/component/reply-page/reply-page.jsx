@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./reply-page.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeReplyPage } from "../../features/channel/channelSlice";
 import { CancelIcon } from "../../assets/icons/icons";
 import MessageBlock from "../message-block/message-block";
@@ -10,6 +10,7 @@ import { db } from "../../utils/firebase";
 import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
 import InputTextareaReplyPage from "../input-textarea/input-textarea-reply-page";
 import ReplyBlock from "../reply-block/reply-block";
+import { sortObjectByCreateAt } from "../../utils/sort";
 
 const ReplyPage = ({ message }) => {
   const dispatch = useDispatch();
@@ -18,16 +19,16 @@ const ReplyPage = ({ message }) => {
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "replies", mid), (doc) => {
       const docData = doc.data();
-      if (docData !== undefined && docData !== null) {
-        setM(docData);
-      }
+
+      setM(docData);
     });
   }, [mid]);
 
   // if (message.replies !== undefined || message.replies !== null) {
   //   replies = message.replies;
   // }
-  const repliesArray = Object.values(m);
+  const repliesArray = sortObjectByCreateAt(m);
+
   const isRepliesEmpty = repliesArray.length === 0;
   const count = repliesArray.length;
 

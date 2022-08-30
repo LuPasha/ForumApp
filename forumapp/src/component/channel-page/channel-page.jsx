@@ -92,6 +92,7 @@ const ChannelPage = () => {
           <div className="a" ref={aRef}>
             <ChannelSectionWithReply roomName={roomName} roomMessages={rm} />
           </div>
+
           <div className="b" ref={bRef}>
             <div className="d" ref={dRef} />
             <ReplyPage message={selectMessage} />

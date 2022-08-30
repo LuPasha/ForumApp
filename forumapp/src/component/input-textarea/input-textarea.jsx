@@ -49,14 +49,13 @@ const InputTextarea = () => {
 
   return (
     <div className="input-textarea-container">
-      <form>
-        <textarea
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-          value={text}
-        ></textarea>
-      </form>
+      <textarea
+        onChange={(e) => {
+          setText(e.target.value);
+        }}
+        value={text}
+      ></textarea>
+
       <div className="button-section">
         <div
           onClick={() => {

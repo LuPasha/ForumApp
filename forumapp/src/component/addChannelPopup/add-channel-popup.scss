@@ -76,9 +76,14 @@
       text-align: start;
       width: 98%;
       margin-bottom: 40px;
+      .name-used {
+        font-size: 13px;
+        color: rgb(34, 74, 148);
+      }
       .the-input {
         display: flex;
         align-items: center;
+
         .prefix {
           position: relative;
           left: 15px;

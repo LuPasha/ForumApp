@@ -10,6 +10,10 @@ import ReplyButtonGroup from "../reply-button-group/reply-button-group";
 const MessageBlock = ({ mes }) => {
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
+  const [nameHoverd, setNameHovered] = useState(false);
+  const [timeHoverd, setTimeHovered] = useState(false);
+  const [iconHovered, setIconHovered] = useState(false);
+
   // if (mes === null || mes === undefined) {
   //   return <></>;
   // }
