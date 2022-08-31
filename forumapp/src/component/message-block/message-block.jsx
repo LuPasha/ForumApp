@@ -5,10 +5,10 @@ import { useDispatch } from "react-redux";
 import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupReplies } from "../../features/channel/channelSlice";
 import { useState } from "react";
-import ReplyButtonGroup from "../reply-button-group/reply-button-group";
+
 import ReactTooltip from "react-tooltip";
 
-const MessageBlock = ({ mes }) => {
+const MessageBlock = ({ mes, Buttons }) => {
   const dispatch = useDispatch();
 
   const [isHovered, setIsHovered] = useState(false);
@@ -79,7 +79,7 @@ const MessageBlock = ({ mes }) => {
           </div>
         )}
       </div>
-      {isHovered && <ReplyButtonGroup message={mes} />}
+      {isHovered && <Buttons message={mes} />}
     </div>
   );
 };

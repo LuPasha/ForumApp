@@ -4,6 +4,7 @@ import "./channel-section.scss";
 import MessageBlock from "../message-block/message-block";
 import InputTextarea from "../input-textarea/input-textarea";
 import { sortObjectByCreateAt } from "../../utils/sort";
+import ReplyButtonGroup from "../reply-button-group/reply-button-group";
 
 const ChannelSection = ({ roomName, roomMessages }) => {
   const srm = sortObjectByCreateAt(roomMessages);
@@ -14,7 +15,13 @@ const ChannelSection = ({ roomName, roomMessages }) => {
       </div>
       {roomMessages &&
         srm.map((mes) => {
-          return <MessageBlock key={mes.messageId} mes={mes} />;
+          return (
+            <MessageBlock
+              key={mes.messageId}
+              mes={mes}
+              Buttons={ReplyButtonGroup}
+            />
+          );
         })}
     </div>
   );
