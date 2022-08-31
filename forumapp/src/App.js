@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import AllChannels from "./routes/all-channels/all-channels";
 import AllDirectMessages from "./routes/all-direct-messages/all-direct-messages";
+import SavedItemsPage from "./routes/saved-items-page/saved-items-page";
 
 function App() {
   const { currentUser } = useSelector((store) => store.user);
@@ -26,6 +27,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="ac/*" element={<AllChannels />} />
         <Route path="adm/*" element={<AllDirectMessages />} />
+        <Route path="saved" element={<SavedItemsPage />} />
       </Route>
     </Routes>
   );

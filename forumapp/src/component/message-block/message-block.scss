@@ -13,10 +13,13 @@
         font-weight: bold;
         font-size: 15px;
       }
-      .time {
-        margin-left: 10px;
-        color: rgb(121, 121, 121);
-        font-size: 12px;
+      .time-date {
+        cursor: pointer;
+        .time {
+          margin-left: 10px;
+          color: rgb(121, 121, 121);
+          font-size: 12px;
+        }
       }
     }
     .message {

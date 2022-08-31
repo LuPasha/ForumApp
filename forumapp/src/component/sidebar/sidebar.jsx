@@ -28,6 +28,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setupUserName } from "../../features/user/userSlice";
 import { setupReservedWords } from "../../features/reservedWords/reservedWordsSlice";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const { userRooms, currentUser } = useSelector((store) => store.user);
@@ -35,9 +36,9 @@ const Sidebar = () => {
   const { selectRoom } = useSelector((store) => store.channel);
 
   const [showChannels, setShowChannels] = useState(true);
-  const [showDM, setShowDM] = useState(true);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const unsub = onSnapshot(
       doc(db, "userChannels", currentUser?.uid),
@@ -69,7 +70,7 @@ const Sidebar = () => {
       dispatch(setupReservedWords(Object.values(docData)));
     });
     return unsub;
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="side-bar-container">
@@ -79,7 +80,13 @@ const Sidebar = () => {
       <div className="sidebar-shortcuts">
         <SidebarOption Icon={ChatIcon} title="Threads" />
         <SidebarOption Icon={AtIcon} title="Mentions & replies" />
-        <SidebarOption Icon={BookMarkIcon} title="Saved Items" />
+        <div
+          onClick={() => {
+            navigate("/app/saved");
+          }}
+        >
+          <SidebarOption Icon={BookMarkIcon} title="Saved Items" />
+        </div>
         <SidebarOption Icon={MoreIcon} title="More" />
       </div>
       <div className="channel-message-section">

@@ -11,9 +11,7 @@ import ButtonGroupReplyHeader from "../reply-button-group/button-group-reply-hea
 const MessageBlockReplyPage = ({ mes }) => {
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
-  // if (mes === null || mes === undefined) {
-  //   return <></>;
-  // }
+
   const rs = mes?.replies;
   const replies = Object.values(rs);
   const hasReplies = replies?.length !== 0;
