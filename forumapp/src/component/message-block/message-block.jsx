@@ -4,24 +4,27 @@ import "./message-block.scss";
 import { useDispatch } from "react-redux";
 import { openReplyPage } from "../../features/channel/channelSlice";
 import { setupReplies } from "../../features/channel/channelSlice";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import ReactTooltip from "react-tooltip";
+import UserInfoPopup from "../user-info-popup/user-info-popup";
+import { set } from "firebase/database";
 
 const MessageBlock = ({ mes, Buttons }) => {
+  let timer;
+  let timer2;
+  const nameRef = useRef(null);
+  const pos = nameRef.current?.offsetTop;
+
   const dispatch = useDispatch();
+  const [tagpos, setTagpos] = useState(0);
 
   const [isHovered, setIsHovered] = useState(false);
   const [nameHoverd, setNameHovered] = useState(false);
   const [timeHoverd, setTimeHovered] = useState(false);
   const [iconHovered, setIconHovered] = useState(false);
 
-  const rs = mes?.replies;
-  const replies = Object.values(rs);
-  const hasReplies = replies?.length !== 0;
-
   const showReplies = () => {
-    dispatch(setupReplies(replies));
     dispatch(openReplyPage());
   };
 
@@ -41,7 +44,32 @@ const MessageBlock = ({ mes, Buttons }) => {
       </div>
       <div className="message-container">
         <div className="user-info-section">
-          <div className="name">{mes.userName}</div>
+          <div
+            onMouseOver={(e) => {
+              setNameHovered(true);
+            }}
+            onMouseOut={() => {
+              setNameHovered(false);
+            }}
+          >
+            <div className="name" ref={nameRef}>
+              <span
+                style={{ textDecoration: nameHoverd ? "underline" : "none" }}
+                onMouseOver={(e) => setTagpos(e.clientY)}
+              >
+                {mes.userName}
+              </span>
+            </div>
+
+            {nameHoverd && (
+              <UserInfoPopup
+                userName={mes.userName}
+                userId={mes.uid}
+                pos={pos}
+                tagpos={tagpos}
+              />
+            )}
+          </div>
           <div
             className="time-date"
             onMouseOver={() => {
@@ -70,14 +98,6 @@ const MessageBlock = ({ mes, Buttons }) => {
           </div>
         </div>
         <div className="message">{mes.message}</div>
-        {hasReplies && (
-          <div className="reply-link">
-            <button onClick={showReplies}>go to reply</button>
-            {replies?.map((r) => {
-              return r.replyContent;
-            })}
-          </div>
-        )}
       </div>
       {isHovered && <Buttons message={mes} />}
     </div>

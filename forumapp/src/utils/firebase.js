@@ -120,7 +120,7 @@ export const updateProfileToDatabase = async (userId, userProfile) => {
 //   await setDoc(doc(db, "channels", "rooms"), newRoom, { merge: true });
 // };
 export const addNewRoomToDatabase = async (newRoom, roomId) => {
-  await setDoc(doc(db, "channels", roomId), newRoom, { merge: true });
+  await setDoc(doc(db, "channels", "rooms"), newRoom, { merge: true });
 };
 
 export const addNewRoomToUserChannel = async (newRoom, uid) => {
@@ -137,7 +137,7 @@ export const addNewMessageToDatabase = async (newMessage, roomId) => {
 };
 
 export const addNewReplyToDatabase = async (newReply, mid) => {
-  const id = newReply.replyId;
+  const id = newReply.messageId;
   await setDoc(
     doc(db, "replies", mid),
 
@@ -151,4 +151,8 @@ export const addReservedWordToDatabase = async (word) => {
     { [word]: word },
     { merge: true }
   );
+};
+export const addDMtoDatabase = async (newDM, suid, ruid) => {
+  await setDoc(doc(db, "friends", suid), { [ruid]: newDM }, { merge: true });
+  await setDoc(doc(db, "friends", ruid), { [suid]: newDM }, { merge: true });
 };

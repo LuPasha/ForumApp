@@ -8,7 +8,9 @@ import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
 
 const InputTextareaReplyPage = () => {
-  const { userName, uid } = useSelector((store) => store.user);
+  const { userName, uid, currentUser } = useSelector((store) => store.user);
+  const email = currentUser?.email;
+
   const { selectMessage } = useSelector((store) => store.channel);
   const [showPicker, setShowPicker] = useState(false);
 
@@ -29,10 +31,11 @@ const InputTextareaReplyPage = () => {
     const r = {
       date: date,
       time: time,
-      reply: text,
-      replyId: rid,
+      message: text,
+      messageId: rid,
       uid: uid,
       userName: userName,
+      userEmail: email,
 
       createAt: createAt,
     };

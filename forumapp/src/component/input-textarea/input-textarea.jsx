@@ -9,12 +9,13 @@ import { BiggerSmileIcon } from "../../assets/icons/icons";
 import { set } from "firebase/database";
 
 const InputTextarea = () => {
-  const { userName, uid } = useSelector((store) => store.user);
+  const { userName, uid, currentUser } = useSelector((store) => store.user);
   const { selectRoom } = useSelector((store) => store.channel);
   const [showPicker, setShowPicker] = useState(false);
 
   const [text, setText] = useState("");
   const isEmpty = text === "";
+  const email = currentUser?.email;
   const today = new Date();
   const date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -36,6 +37,7 @@ const InputTextarea = () => {
       userName: userName,
       replies: {},
       createAt: createAt,
+      userEmail: email,
     };
 
     addNewMessageToDatabase(m, selectRoom.roomId);

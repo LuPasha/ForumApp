@@ -1,0 +1,56 @@
+.channel-tag-container {
+  padding: 5px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgb(202, 202, 202);
+  height: 50px;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  .warning {
+    font-size: 13px;
+    color: rgb(27, 73, 173);
+  }
+  .date-section {
+    display: flex;
+
+    .name {
+      font-weight: 600;
+      margin-right: 20px;
+      .a {
+        font-size: 14px;
+      }
+    }
+    .date {
+      font-size: 16px;
+      .b {
+        font-size: 14px;
+      }
+    }
+  }
+  .button-section {
+    margin-right: 20px;
+    .enabled {
+      width: 60px;
+      height: 30px;
+      margin-left: 20px;
+      background-color: white;
+      border: 1px solid rgb(97, 97, 97);
+    }
+    .enabled:hover {
+      background-color: rgb(80, 79, 79);
+      color: white;
+    }
+    .disabled {
+      width: 60px;
+      height: 30px;
+      margin-left: 20px;
+      background-color: rgb(224, 224, 224);
+      border: 1px solid rgb(97, 97, 97);
+    }
+  }
+}

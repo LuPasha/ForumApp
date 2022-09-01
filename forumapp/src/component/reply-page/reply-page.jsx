@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeReplyPage } from "../../features/channel/channelSlice";
 import { CancelIcon } from "../../assets/icons/icons";
 import MessageBlock from "../message-block/message-block";
-import MessageBlockReplyPage from "../message-block/message-block-reply-page";
+
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
@@ -23,6 +23,7 @@ const ReplyPage = ({ message }) => {
 
       setM(docData);
     });
+    return unsub;
   }, [mid]);
 
   // if (message.replies !== undefined || message.replies !== null) {
@@ -60,7 +61,13 @@ const ReplyPage = ({ message }) => {
       )}
       <div>
         {repliesArray.map((r) => {
-          return <ReplyBlock key={r.replyId} reply={r} />;
+          return (
+            <MessageBlock
+              key={r.messageId}
+              mes={r}
+              Buttons={ButtonGroupReplyHeader}
+            />
+          );
         })}
       </div>
       <div>

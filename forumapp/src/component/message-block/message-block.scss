@@ -9,9 +9,11 @@
     .user-info-section {
       display: flex;
       align-items: center;
+
       .name {
         font-weight: bold;
         font-size: 15px;
+        cursor: pointer;
       }
       .time-date {
         cursor: pointer;

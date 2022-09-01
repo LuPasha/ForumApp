@@ -15,9 +15,6 @@ const ChannelSlice = createSlice({
   name: "channel",
   initialState,
   reducers: {
-    addRoom: (state, action) => {
-      state.rooms = [...state.rooms, { roomName: action.payload }];
-    },
     setupRooms: (state, action) => {
       state.rooms = action.payload;
     },
@@ -47,7 +44,6 @@ const ChannelSlice = createSlice({
 });
 
 export const {
-  addRoom,
   closeAddChannelPopupOpen,
   openAddChannelPopupOpen,
   setupRooms,

@@ -33,12 +33,22 @@ const AddChannelPopup = () => {
     const roomId = uuid().slice(0, 8);
     const today = new Date();
     const createAt = today.getTime();
+    const date =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate();
+
+    const time = today.getHours() + ":" + today.getMinutes();
 
     const newRoom = {
       [roomId]: {
-        roomName: roomName,
-        roomId: roomId,
-        createAt: createAt,
+        roomName,
+        roomId,
+        createAt,
+        time,
+        date,
       },
     };
 

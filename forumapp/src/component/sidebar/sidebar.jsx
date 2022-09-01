@@ -4,6 +4,7 @@ import "./sidebar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import RoomTag from "../roomTag/roomTag";
 import { sortArrayByCreateAt } from "../../utils/sort";
+import { sortObjectByCreateAt } from "../../utils/sort";
 
 import {
   addRoom,
@@ -29,6 +30,10 @@ import { db } from "../../utils/firebase";
 import { setupUserName } from "../../features/user/userSlice";
 import { setupReservedWords } from "../../features/reservedWords/reservedWordsSlice";
 import { useNavigate } from "react-router-dom";
+import { setupSelectRoom } from "../../features/channel/channelSlice";
+
+import { setupSelectTmsm } from "../../features/tmsm/tmsmSlice";
+import { setupSelectFriend } from "../../features/directMessage/directMessageSlice";
 
 const Sidebar = () => {
   const { userRooms, currentUser } = useSelector((store) => store.user);
@@ -44,11 +49,8 @@ const Sidebar = () => {
       doc(db, "userChannels", currentUser?.uid),
       (doc) => {
         const docData = doc.data();
-        if (docData !== undefined) {
-          const roomData = Object.values(docData);
 
-          dispatch(setupUserRooms(roomData));
-        }
+        dispatch(setupUserRooms(docData));
       }
     );
 
@@ -63,7 +65,7 @@ const Sidebar = () => {
     return unsub;
   }, [currentUser, dispatch]);
 
-  const sortedUr = sortArrayByCreateAt(userRooms);
+  const sortedUr = sortObjectByCreateAt(userRooms);
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "reservedWord", "words"), (doc) => {
       const docData = doc.data();
@@ -78,7 +80,16 @@ const Sidebar = () => {
         <h2>this is a header </h2>
       </div>
       <div className="sidebar-shortcuts">
-        <SidebarOption Icon={ChatIcon} title="Threads" />
+        <div
+          onClick={() => {
+            dispatch(setupSelectRoom(null));
+            dispatch(setupSelectFriend(null));
+            dispatch(setupSelectTmsm("AC"));
+            navigate("/app/ac");
+          }}
+        >
+          <SidebarOption Icon={ChatIcon} title="All Channels" />
+        </div>
         <SidebarOption Icon={AtIcon} title="Mentions & replies" />
         <div
           onClick={() => {
@@ -98,7 +109,7 @@ const Sidebar = () => {
           >
             <SidebarOption
               Icon={showChannels ? DownArrowIcon : LeftArrowIcon}
-              title="Channels"
+              title="My Channels"
             />
           </div>
 
@@ -114,7 +125,7 @@ const Sidebar = () => {
               dispatch(openAddChannelPopupOpen());
             }}
           >
-            <SidebarOption Icon={AddIcon} title="Add channels" />
+            <SidebarOption Icon={AddIcon} title="Add Channels" />
           </div>
         </div>
         <div className="message-section">
