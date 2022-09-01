@@ -6,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { addNewMessageToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
+import { SendIcon } from "../../assets/icons/icons";
 
 const InputTextareaWithReply = () => {
   const { userName, uid, currentUser } = useSelector((store) => store.user);
@@ -59,21 +60,30 @@ const InputTextareaWithReply = () => {
           value={text}
         ></textarea>
       </form>
+
       <div className="button-section">
         <div
-          onClick={(e) => {
+          onClick={() => {
             setShowPicker((b) => !b);
           }}
+          className="smile"
         >
           <BiggerSmileIcon />
         </div>
         {showPicker && (
           <div className="picker">
-            <Picker pickerStyle={{}} onEmojiClick={onEmojiClick} />
+            <Picker
+              pickerStyle={{ width: "50%" }}
+              onEmojiClick={onEmojiClick}
+            />
           </div>
         )}
-        <button disabled={isEmpty} onClick={submitHandler}>
-          send
+        <button
+          disabled={isEmpty}
+          onClick={submitHandler}
+          className={isEmpty ? "disabled" : "enabled"}
+        >
+          <SendIcon />
         </button>
       </div>
     </div>

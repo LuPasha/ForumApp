@@ -40,7 +40,7 @@ const MessageBlock = ({ mes, Buttons }) => {
       style={{ backgroundColor: isHovered ? "#f8f8f8" : "white" }}
     >
       <div className="user-icon-container">
-        <UserIconProfile />
+        <UserIconProfile userName={mes.userName} />
       </div>
       <div className="message-container">
         <div className="user-info-section">

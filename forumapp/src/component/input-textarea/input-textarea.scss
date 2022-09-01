@@ -31,9 +31,30 @@
     display: flex;
     position: relative;
     bottom: 20px;
+    width: 95%;
     align-items: center;
-    button {
+    justify-content: space-between;
+    .smile {
+      cursor: pointer;
+    }
+    .enabled {
       height: 25px;
+      width: 60px;
+
+      background-color: rgb(223, 223, 223);
+      border: 1px solid rgb(168, 168, 168);
+    }
+    .enabled:hover {
+      background-color: rgb(160, 160, 160);
+      color: white;
+    }
+    .disabled {
+      cursor: auto;
+      height: 25px;
+      width: 60px;
+
+      background-color: rgb(248, 248, 248);
+      border: 1px solid rgb(168, 168, 168);
     }
 
     .picker {

@@ -27,10 +27,21 @@ const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
     const DMId = uuid().slice(0, 12);
     const today = new Date();
     const createAt = today.getTime();
+    const date =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate();
+
+    const time = today.getHours() + ":" + today.getMinutes();
     const newDM = {
       DMId,
       createAt,
       userName,
+      date,
+      time,
+      rid: userId,
     };
     addDMtoDatabase(newDM, uid, userId);
   };
@@ -39,7 +50,7 @@ const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
     <div className="user-info-popup-outer-container" style={{ top: pos }}>
       <div className="user-info-popup-container">
         <div className="up-section">
-          <UserIconProfile />
+          <UserIconProfile userName={userName} />
         </div>
         <div className="down-section">
           <div

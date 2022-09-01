@@ -2,8 +2,7 @@ import "./user-icon-profile.scss";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleIcon } from "../../features/user/userSlice";
-const UserIconProfile = () => {
-  const { userName } = useSelector((store) => store.user);
+const UserIconProfile = ({ userName }) => {
   const letter = userName?.slice(0, 1);
 
   return (

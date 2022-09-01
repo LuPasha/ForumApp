@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { addNewMessageToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
-import { BiggerSmileIcon } from "../../assets/icons/icons";
+import { BiggerSmileIcon, SendIcon } from "../../assets/icons/icons";
 import { set } from "firebase/database";
 
 const InputTextarea = () => {
@@ -63,6 +63,7 @@ const InputTextarea = () => {
           onClick={() => {
             setShowPicker((b) => !b);
           }}
+          className="smile"
         >
           <BiggerSmileIcon />
         </div>
@@ -74,8 +75,12 @@ const InputTextarea = () => {
             />
           </div>
         )}
-        <button disabled={isEmpty} onClick={submitHandler}>
-          send
+        <button
+          disabled={isEmpty}
+          onClick={submitHandler}
+          className={isEmpty ? "disabled" : "enabled"}
+        >
+          <SendIcon />
         </button>
       </div>
     </div>

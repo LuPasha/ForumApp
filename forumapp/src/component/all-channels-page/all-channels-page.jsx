@@ -29,7 +29,7 @@ const AllChannelsPage = () => {
       <div className="header">
         <h2>{count} channels in total</h2>
       </div>
-      <div>
+      <div className="body">
         {ac.map((c) => {
           return <ChannelTag channel={c} key={c.roomId} />;
         })}

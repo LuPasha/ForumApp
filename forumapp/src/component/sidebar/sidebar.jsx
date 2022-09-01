@@ -33,14 +33,22 @@ import { useNavigate } from "react-router-dom";
 import { setupSelectRoom } from "../../features/channel/channelSlice";
 
 import { setupSelectTmsm } from "../../features/tmsm/tmsmSlice";
-import { setupSelectFriend } from "../../features/directMessage/directMessageSlice";
+import {
+  setupFriends,
+  setupSelectFriend,
+} from "../../features/directMessage/directMessageSlice";
+import FriendTag from "../friend-tag/friend-tag";
 
 const Sidebar = () => {
   const { userRooms, currentUser } = useSelector((store) => store.user);
 
   const { selectRoom } = useSelector((store) => store.channel);
+  const { friends, selectFriend } = useSelector((store) => store.directMessage);
+
+  const sortedfriend = sortObjectByCreateAt(friends);
 
   const [showChannels, setShowChannels] = useState(true);
+  const [showFriends, setShowFriends] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,6 +81,13 @@ const Sidebar = () => {
     });
     return unsub;
   }, [dispatch]);
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "friends", currentUser?.uid), (doc) => {
+      const docData = doc.data();
+      dispatch(setupFriends(docData));
+    });
+    return unsub;
+  }, [dispatch, currentUser]);
 
   return (
     <div className="side-bar-container">
@@ -128,9 +143,22 @@ const Sidebar = () => {
             <SidebarOption Icon={AddIcon} title="Add Channels" />
           </div>
         </div>
-        <div className="message-section">
-          <SidebarOption Icon={DownArrowIcon} title="Direct Messages" />
+        <div
+          className="message-section"
+          onClick={() => {
+            setShowFriends(!showFriends);
+          }}
+        >
+          <SidebarOption
+            Icon={showFriends ? DownArrowIcon : LeftArrowIcon}
+            title="Direct Messages"
+          />
         </div>
+        {showFriends
+          ? sortedfriend.map((f) => {
+              return <FriendTag friend={f} key={f.DMId} />;
+            })
+          : selectFriend && <FriendTag friend={selectFriend} />}
       </div>
     </div>
   );
