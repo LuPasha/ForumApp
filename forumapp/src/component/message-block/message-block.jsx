@@ -11,8 +11,6 @@ import UserInfoPopup from "../user-info-popup/user-info-popup";
 import { set } from "firebase/database";
 
 const MessageBlock = ({ mes, Buttons }) => {
-  let timer;
-  let timer2;
   const nameRef = useRef(null);
   const pos = nameRef.current?.offsetTop;
 
@@ -40,7 +38,7 @@ const MessageBlock = ({ mes, Buttons }) => {
       style={{ backgroundColor: isHovered ? "#f8f8f8" : "white" }}
     >
       <div className="user-icon-container">
-        <UserIconProfile userName={mes.userName} />
+        <UserIconProfile userName={mes.userName} len={40} />
       </div>
       <div className="message-container">
         <div className="user-info-section">

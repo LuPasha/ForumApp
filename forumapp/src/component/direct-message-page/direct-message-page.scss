@@ -2,7 +2,38 @@
   position: fixed;
 
   top: 50px;
-  bottom: 0px;
+  bottom: 170px;
   left: 231px;
   right: 0px;
+  overflow-y: auto;
+  .header {
+    padding-left: 20px;
+    background-color: white;
+    z-index: 30;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    height: 44px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+
+    top: 0;
+    .name {
+      margin-left: 10px;
+    }
+  }
+  .first-block {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(201, 201, 201);
+    background-color: rgb(230, 230, 230);
+  }
+  .textarea {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 231px;
+  }
 }

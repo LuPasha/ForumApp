@@ -154,5 +154,13 @@ export const addReservedWordToDatabase = async (word) => {
 };
 export const addDMtoDatabase = async (newDM, suid, ruid) => {
   await setDoc(doc(db, "friends", suid), { [ruid]: newDM }, { merge: true });
-  await setDoc(doc(db, "friends", ruid), { [suid]: newDM }, { merge: true });
+  //await setDoc(doc(db, "friends", ruid), { [suid]: newDM }, { merge: true });
+};
+
+export const addNewDirectMessageToDatabase = async (dm, DMId) => {
+  await setDoc(
+    doc(db, "directMessages", DMId),
+    { [dm.messageId]: dm },
+    { merge: true }
+  );
 };

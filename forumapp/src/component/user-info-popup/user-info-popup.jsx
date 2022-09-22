@@ -11,6 +11,7 @@ import { setupSelectFriend } from "../../features/directMessage/directMessageSli
 import { v4 as uuid } from "uuid";
 import { useSelector } from "react-redux";
 import { addDMtoDatabase } from "../../utils/firebase";
+import { concateUserId } from "../../utils/concateUserId";
 
 const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
   if (tagpos > 300) {
@@ -22,9 +23,9 @@ const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const DMId = concateUserId(uid, userId);
 
   const createNewDM = () => {
-    const DMId = uuid().slice(0, 12);
     const today = new Date();
     const createAt = today.getTime();
     const date =
@@ -50,7 +51,7 @@ const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
     <div className="user-info-popup-outer-container" style={{ top: pos }}>
       <div className="user-info-popup-container">
         <div className="up-section">
-          <UserIconProfile userName={userName} />
+          <UserIconProfile userName={userName} len={60} />
         </div>
         <div className="down-section">
           <div
@@ -60,7 +61,7 @@ const UserInfoPopup = ({ pos, tagpos, userName, userId }) => {
               dispatch(setupSelectRoom(null));
               dispatch(setupSelectTmsm(null));
               createNewDM();
-              navigate(`/app/adm/${userId}`);
+              navigate(`/app/adm/${DMId}`);
             }}
           >
             <div className="icon">

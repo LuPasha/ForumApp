@@ -8,6 +8,8 @@ import AddChannelPopup from "../../component/addChannelPopup/add-channel-popup";
 import { useSelector } from "react-redux";
 import UserIcon from "../../component/user-icon/user-icon";
 import UserIconDropdown from "../../component/user-icon-dropdown/user-icon-dropdown";
+import { HomeIcon } from "../../assets/icons/icons";
+
 const Navigation = () => {
   const { isAddChannelPopupOpen } = useSelector((store) => store.channel);
   const { isDropdownOpen } = useSelector((store) => store.user);
@@ -15,7 +17,9 @@ const Navigation = () => {
   return (
     <>
       <div className="navigation-container">
-        <div className="left-section">APP_LOGO</div>
+        <div className="left-section">
+          <HomeIcon />
+        </div>
         <div className="middle-section">
           <button>
             <TimeIcon />

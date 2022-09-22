@@ -7,10 +7,12 @@ import { addNewMessageToDatabase } from "../../utils/firebase";
 import Picker from "emoji-picker-react";
 import { BiggerSmileIcon } from "../../assets/icons/icons";
 import { SendIcon } from "../../assets/icons/icons";
+import { addNewReplyToDatabase } from "../../utils/firebase";
+import { addNewDirectMessageToDatabase } from "../../utils/firebase";
 
-const InputTextareaWithReply = () => {
+const InputTextareaWithReply = ({ type, DMId }) => {
   const { userName, uid, currentUser } = useSelector((store) => store.user);
-  const { selectRoom } = useSelector((store) => store.channel);
+  const { selectRoom, selectMessage } = useSelector((store) => store.channel);
   const [showPicker, setShowPicker] = useState(false);
 
   const [text, setText] = useState("");
@@ -23,25 +25,57 @@ const InputTextareaWithReply = () => {
 
   const time = today.getHours() + ":" + today.getMinutes();
 
-  const mid = uuid().slice(0, 23);
-
   const createAt = today.getTime();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const m = {
-      date: date,
-      time: time,
-      message: text,
-      messageId: mid,
-      uid: uid,
-      userName: userName,
-      replies: {},
-      createAt: createAt,
-      userEmail: email,
-    };
+    if (type === "channel") {
+      const mid = uuid().slice(0, 23);
+      const m = {
+        date: date,
+        time: time,
+        message: text,
+        messageId: mid,
+        uid: uid,
+        userName: userName,
+        replies: {},
+        createAt: createAt,
+        userEmail: email,
+      };
 
-    addNewMessageToDatabase(m, selectRoom.roomId);
+      addNewMessageToDatabase(m, selectRoom.roomId);
+    } else if (type === "reply") {
+      const rid = uuid().slice(0, 18);
+      const r = {
+        date: date,
+        time: time,
+        message: text,
+        messageId: rid,
+        uid: uid,
+        userName: userName,
+        userEmail: email,
+
+        createAt: createAt,
+      };
+
+      addNewReplyToDatabase(r, selectMessage.messageId);
+    } else if (type === "directMessage") {
+      const mid = uuid().slice(0, 23);
+      const dm = {
+        date: date,
+        time: time,
+        message: text,
+        messageId: mid,
+        uid: uid,
+        userName: userName,
+        userEmail: email,
+
+        createAt: createAt,
+      };
+      addNewDirectMessageToDatabase(dm, DMId);
+    } else {
+      console.log("inputarea type error");
+    }
     setText("");
   };
 

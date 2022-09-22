@@ -46,7 +46,7 @@ const UserIconDropdown = () => {
       <div className="user-profile-dropdown-container">
         <div className="header-container">
           <div className="logo-container">
-            <UserIconProfile userName={userName} />
+            <UserIconProfile userName={userName} len={40} />
           </div>
           <div className="user-info">
             <div className="name">{userName}</div>

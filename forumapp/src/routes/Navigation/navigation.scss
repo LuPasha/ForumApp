@@ -13,6 +13,10 @@
   z-index: 100;
 
   color: white;
+  .left-section {
+    cursor: pointer;
+    padding-left: 11px;
+  }
   .middle-section {
     display: flex;
     justify-content: center;

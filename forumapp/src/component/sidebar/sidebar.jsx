@@ -46,9 +46,11 @@ const Sidebar = () => {
   const { friends, selectFriend } = useSelector((store) => store.directMessage);
 
   const sortedfriend = sortObjectByCreateAt(friends);
+  console.log(sortedfriend);
 
   const [showChannels, setShowChannels] = useState(true);
   const [showFriends, setShowFriends] = useState(true);
+  const sortedUr = sortObjectByCreateAt(userRooms);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,7 +75,6 @@ const Sidebar = () => {
     return unsub;
   }, [currentUser, dispatch]);
 
-  const sortedUr = sortObjectByCreateAt(userRooms);
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "reservedWord", "words"), (doc) => {
       const docData = doc.data();
@@ -91,9 +92,7 @@ const Sidebar = () => {
 
   return (
     <div className="side-bar-container">
-      <div className="sidebar-header">
-        <h2>this is a header </h2>
-      </div>
+      <div className="sidebar-header"></div>
       <div className="sidebar-shortcuts">
         <div
           onClick={() => {

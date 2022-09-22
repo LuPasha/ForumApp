@@ -98,7 +98,7 @@ const ChannelPage = () => {
             <ReplyPage message={selectMessage} />
           </div>
           <div className="c" ref={cRef}>
-            <InputTextareaWithReply />
+            <InputTextareaWithReply type={"channel"} />
           </div>
         </div>
       ) : (

@@ -8,7 +8,7 @@ import MessageBlock from "../message-block/message-block";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import InputTextareaWithReply from "../input-textarea/input-textarea-with-reply";
-import InputTextareaReplyPage from "../input-textarea/input-textarea-reply-page";
+
 import ReplyBlock from "../reply-block/reply-block";
 import { sortObjectByCreateAt } from "../../utils/sort";
 import ButtonGroupReplyHeader from "../reply-button-group/button-group-reply-header";
@@ -71,7 +71,7 @@ const ReplyPage = ({ message }) => {
         })}
       </div>
       <div>
-        <InputTextareaReplyPage />
+        <InputTextareaWithReply type={"reply"} />
       </div>
     </div>
   );
